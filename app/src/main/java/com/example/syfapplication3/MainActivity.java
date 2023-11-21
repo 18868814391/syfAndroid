@@ -2,6 +2,7 @@ package com.example.syfapplication3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -26,5 +27,10 @@ public class MainActivity extends AppCompatActivity {
         TextView text2= (TextView) findViewById(R.id.txv);
 
         text2.setText(name.getText().toString());   // 设置字符
+    }
+
+    public void goPage(View v){
+        Intent intent=new Intent(this,MainActivity2.class);
+        startActivity(intent);
     }
 }
