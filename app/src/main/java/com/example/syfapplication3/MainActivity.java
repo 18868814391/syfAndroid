@@ -3,6 +3,7 @@ package com.example.syfapplication3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import com.example.syfapplication3.retrofitutils.http.RetrofitUtils;
 import com.example.syfapplication3.retrofitutils.http.RetrofitManager;
 import com.example.syfapplication3.retrofitutils.http.callback.StringCallback;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -36,8 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("tab","[node,js]");
+
+        JsonObject userObject = new JsonObject();
+        JsonArray addressArray = new JsonArray();
+        addressArray.add("node");
+        addressArray.add("js");
+        userObject.add("tab", addressArray);
+        String jsonStr = userObject.toString();
+
+        Gson gson = new Gson();
         String body = "{\"tab\": \"[node,js]\"}";
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), body);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
         RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
             @Override
             public void onSuccess(String s) {
