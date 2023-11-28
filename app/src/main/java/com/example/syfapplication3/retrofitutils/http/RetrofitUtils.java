@@ -95,14 +95,14 @@ public class RetrofitUtils {
     /**
      * post有参数
      */
-    public static void post(String url, Map<String, String> map, StringCallback callback) {
+    public static void post(String url, RequestBody info, StringCallback callback) {
         Retrofit retrofit = RetrofitManager.getInstance().getStringRetrofit();
-        post(retrofit, url, map, callback);
+        post(retrofit, url, info, callback);
     }
 
-    public static void post(Retrofit retrofit, String url, Map<String, String> map, StringCallback callback) {
+    public static void post(Retrofit retrofit, String url, RequestBody info, StringCallback callback) {
         StringApi baseApi = retrofit.create(StringApi.class);
-        Call<String> call = baseApi.executePost(url, map);
+        Call<String> call = baseApi.executePost(url, info);
         call.enqueue(new RetrofitStringCallback(callback));
     }
 

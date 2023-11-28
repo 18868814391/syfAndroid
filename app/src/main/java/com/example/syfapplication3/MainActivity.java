@@ -13,8 +13,11 @@ import com.example.syfapplication3.retrofitutils.http.RetrofitUtils;
 import com.example.syfapplication3.retrofitutils.http.RetrofitManager;
 import com.example.syfapplication3.retrofitutils.http.callback.StringCallback;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -32,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("name","张三");
-        hashMap.put("age","20");
-        RetrofitUtils.post("index.php?r=blog/tabs", hashMap, new StringCallback() {
+        hashMap.put("tab","[node,js]");
+        String body = "{\"tab\": \"[node,js]\"}";
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), body);
+        RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
             @Override
             public void onSuccess(String s) {
                 Log.d(TAG, "onSuccess: " + s);
