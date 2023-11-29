@@ -37,31 +37,27 @@ public class MainActivity extends AppCompatActivity {
         txv= (TextView) findViewById(R.id.txv);  // 根据ID找到对应的text对象
         txv.setTextSize(++size);       // 修改对象的字符大小-size
 
-
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("tab","[node,js]");
-
-        JsonObject userObject = new JsonObject();
-        JsonArray addressArray = new JsonArray();
-        addressArray.add("node");
-        addressArray.add("js");
-        userObject.add("tab", addressArray);
-        String jsonStr = userObject.toString();
-
-        Gson gson = new Gson();
-        String body = "{\"tab\": \"[node,js]\"}";
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
-        RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
-            @Override
-            public void onSuccess(String s) {
-                Log.d(TAG, "onSuccess: " + s);
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.d(TAG, "onSuccess: " + t);
-            }
-        });
+//        JsonObject userObject = new JsonObject();
+//        JsonArray addressArray = new JsonArray();
+//        addressArray.add("node");
+//        addressArray.add("js");
+//        userObject.add("tab", addressArray);
+//        String jsonStr = userObject.toString();
+//
+//        Gson gson = new Gson();
+//        String body = "{\"tab\": \"[node,js]\"}";
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
+//        RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
+//            @Override
+//            public void onSuccess(String s) {
+//                Log.d(TAG, "onSuccess: " + s);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.d(TAG, "onSuccess: " + t);
+//            }
+//        });
     }
     public void display(View v){     // 另外一个按钮对应的 onclick 响应
         EditText name= (EditText) findViewById(R.id.name);  //还是根据ID找到对象，并进行接下来的操作

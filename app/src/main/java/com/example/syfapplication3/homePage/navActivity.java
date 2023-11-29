@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.example.syfapplication3.R;
 import com.example.syfapplication3.classFun.MyRequest;
+import com.example.syfapplication3.retrofitutils.http.RetrofitUtils;
+import com.example.syfapplication3.retrofitutils.http.callback.StringCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.syfapplication3.databinding.ActivityNavBinding;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class navActivity extends AppCompatActivity {
     private static final String TAG="navActivity";
@@ -38,17 +46,29 @@ public class navActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    public void goRequest(View v){
-        Log.d(TAG, "goRequest: ");
-        new Thread() {//网络请求需要在子线程中完成
-            @Override
-            public void run() {
-                MyRequest request = new MyRequest();
-                String data = "username=root&password=12345";//POST请求的参数
-                String res = request.post("https://www.baidu.com", data);//调用我们写的post方法
-                Log.d(TAG, res);
-            }
-        }.start();
-    }
+//    public void goRequest(View v){
+//        JsonObject userObject = new JsonObject();
+//        JsonArray addressArray = new JsonArray();
+//        addressArray.add("node");
+//        addressArray.add("js");
+//        userObject.add("tab", addressArray);
+//        String jsonStr = userObject.toString();
+//
+//        Gson gson = new Gson();
+//        String body = "{\"tab\": \"[node,js]\"}";
+//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
+//        RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
+//            @Override
+//            public void onSuccess(String s) {
+//
+//                Log.d(TAG, "onSuccess: " + s);
+//            }
+//
+//            @Override
+//            public void onFailure(Throwable t) {
+//                Log.d(TAG, "onSuccess: " + t);
+//            }
+//        });
+//    }
 
 }
