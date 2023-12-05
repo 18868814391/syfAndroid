@@ -22,6 +22,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -62,15 +65,19 @@ public class HomeFragment extends Fragment {
         addressArray.add("js");
         userObject.add("tab", addressArray);
         String jsonStr = userObject.toString();
-
-        Gson gson = new Gson();
-        String body = "{\"tab\": \"[node,js]\"}";
+        Log.d(TAG, "goRequest: "+jsonStr);
+//        Gson gson = new Gson();
+//        String body = "{\"tab\": \"[node,js]\"}";
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
         RetrofitUtils.post("index.php?r=blog/tabs", requestBody, new StringCallback() {
             @Override
             public void onSuccess(String s) {
+
                 Log.d(TAG, "onSuccess:111 " + s);
-                
+                ResultBean resultBean = new Gson().fromJson(s,ResultBean.class);
+                Log.d(TAG, "onSuccess:222 " + resultBean);
+                List<ResultBean.UserBean> userBeanList = resultBean.getData();
+                Log.d(TAG, "userBeanList: "+userBeanList);
             }
 
             @Override
@@ -78,5 +85,19 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "onSuccess: " + t);
             }
         });
+    }
+    public class ResultBean {
+        //注意变量名与字段名一致
+        private int errcode;
+        private String errmsg;
+        private List<UserBean> data;
+
+        public class UserBean{
+            private Number node;
+            private Number js;
+        }
+        public List<UserBean> getData(){
+            return data;
+        }
     }
 }
