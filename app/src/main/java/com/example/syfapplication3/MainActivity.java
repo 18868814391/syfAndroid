@@ -8,7 +8,9 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
+//import android.graphics.Camera;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.icu.text.IDNA;
 import android.os.Bundle;
@@ -38,6 +40,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private Context context;
     private Button QrOpen;
+    private Camera camera;
+    private Boolean isLightOn = false;
     private final static int REQUEST_CODE = 1001;
     private static final String TAG = "MainActivity";
     private static final String TAG2 = "MainActivity234";
@@ -57,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
             IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
             intentIntegrator.setOrientationLocked(false);
             intentIntegrator.initiateScan();
-            //打开扫描界面扫描条形码或二维码
-//            Intent intent = new Intent(context, CaptureActivity.class);
-//            startActivityForResult(intent, REQUEST_CODE);
         }
     };
     // 扫完码之后会在onActivityResult方法中回调结果
@@ -88,13 +89,31 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG2, "334455");
             super.onActivityResult(requestCode, resultCode, data);
         }
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_CODE) {
-//            IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//            final String qrContent = scanResult.getContents();
-//            Toast.makeText(context, "扫描结果:" + qrContent, Toast.LENGTH_SHORT).show();
-//        }
     }
+
+    public void openFlash(View v){
+        CameraManager camManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+//        String cameraId = camManager.getCameraIdList()[0]; // Usually front camera is at 0 position.
+//        camManager.setTorchMode(cameraId, true);
+
+//        CameraManager cameraManager= (CameraManager) getSystemService(CAMERA_SERVICE);
+//        String cameraIdList[]=cameraManager.getCameraIdList();
+//
+//        String cameraId = null;
+//
+//        for(int i=0;i<cameraIdList.length;i++){
+//            CameraCharacteristics cameraCharacteristics=cameraManager.getCameraCharacteristics(cameraIdList[i]);
+//            //可获取闪光灯&&朝向为后置
+//            if(cameraCharacteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)&&
+//                    cameraCharacteristics.get(CameraCharacteristics.LENS_FACING)==CameraCharacteristics.LENS_FACING_BACK){
+//                cameraId=cameraIdList[i];
+//                break;
+//            }
+//        }
+//        cameraManager.setTorchMode(cameraId,true);
+    }
+
+
     int size=30;
     public void bigger(View v){     // 按钮对应的 onclick 响应
         TextView txv;
