@@ -48,6 +48,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
+        android:id="@+id/btnBox"
         android:layout_width="426dp"
         android:layout_height="44dp"
         android:orientation="horizontal"

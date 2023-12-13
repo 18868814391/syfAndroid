@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -101,7 +102,20 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "btns: "+btnList.size());
                 Log.d(TAG, "btns: "+btnList.get(0));
                 Log.d(TAG, "btns: "+btnList.get(0).getName());
-                
+//
+                LinearLayout scrViewButLay = (LinearLayout) v.findViewById(R.id.btnBox);
+                Button[] myButton = new Button[4];
+
+                for(int index = 0; index < 4; index++){
+//                    Log.i("ForTag", "Inside for loop");
+//                    Log.i("ForTag", "button length is "+myButton.length);
+                    myButton[index] = new Button(getActivity());
+                    myButton[index].setText("Button # ");//null ptr exception error
+//                    Log.i("ForTag", "After set text");
+                    scrViewButLay.addView(myButton[index]);
+//                    Log.i("ForTag", "After adding to view");
+                }
+
             }
 
             @Override
